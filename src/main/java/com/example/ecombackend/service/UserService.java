@@ -51,8 +51,8 @@ public class UserService {
         User adminUser = new User("admin", "said", "Bouf", getEncoderPassword("said@1234"),adminRoles);
         userDao.save(adminUser);
 
-//        User simpleUser = new User("user", "abcd", "jiji", getEncoderPassword("said@12345"),userRoles);
-//        userDao.save(simpleUser);
+        User simpleUser = new User("user", "abcd", "jiji", getEncoderPassword("said@12345"),userRoles);
+        userDao.save(simpleUser);
     }
 
     public String getEncoderPassword(String password){
