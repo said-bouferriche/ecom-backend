@@ -5,6 +5,7 @@ import com.example.ecombackend.entity.Product;
 import com.example.ecombackend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -22,11 +23,10 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @PreAuthorize("hasRole('Admin')")
     @PostMapping(value = "/addNewProduct", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public Product addNewProduct(@RequestPart("product") Product product,
                                  @RequestPart("imageFile") MultipartFile[] file){
-//        return productService.addNewProduct(product);
-
         try {
             Set<ImageModel> images = uploadImage(file);
             product.setProductImages(images);
@@ -42,10 +42,13 @@ public class ProductController {
 
         for(MultipartFile file: multipartFiles){
             ImageModel imageModel = new ImageModel(
-                    file.getOriginalFilename(),
-                    file.getContentType(),
-                    file.getBytes()
+//                    file.getOriginalFilename(),
+//                    file.getContentType(),
+//                    file.getBytes()
             );
+            imageModel.setOriginalFilename(file.getOriginalFilename());
+            imageModel.setContentType(file.getContentType());
+            imageModel.setBytes(file.getBytes());
             imageModels.add(imageModel);
         }
         return imageModels;
