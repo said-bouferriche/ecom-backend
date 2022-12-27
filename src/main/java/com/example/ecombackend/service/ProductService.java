@@ -5,6 +5,7 @@ import com.example.ecombackend.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,4 +30,18 @@ public class ProductService {
         return productDao.findById(productId).get();
     }
 
+    public List<Product> getProductDetails(boolean isSingleProductCheckout, Integer productId){
+        if (isSingleProductCheckout){
+            List<Product> list = new ArrayList<>();
+            Product product = productDao.findById(productId).get();
+            list.add(product);
+            return list;
+        }
+        else {
+            List<Product> list = new ArrayList<>();
+            Product product = productDao.findById(productId).get();
+            list.add(product);
+            return list;
+        }
+    }
 }
