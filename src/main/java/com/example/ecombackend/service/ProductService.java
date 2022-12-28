@@ -3,6 +3,8 @@ package com.example.ecombackend.service;
 import com.example.ecombackend.dao.ProductDao;
 import com.example.ecombackend.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,8 +20,9 @@ public class ProductService {
         return productDao.save(product);
     }
 
-    public List<Product> getAllProduct(){
-        return (List<Product>) productDao.findAll();
+    public List<Product> getAllProduct(int pageNumber){
+        Pageable pageable = PageRequest.of(pageNumber,5);
+        return (List<Product>) productDao.findAll(pageable);
     }
 
     public void deleteProduct(Integer productId){

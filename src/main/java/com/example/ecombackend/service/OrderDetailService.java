@@ -37,7 +37,7 @@ public class OrderDetailService {
             orderDetail.setOrderContactNumber(orderInput.getContactNumber());
             orderDetail.setOrderStatus(ORDER_PLACED);
             orderDetail.setOrderAlternateContactNumber(orderInput.getAlternateContactNumber());
-            orderDetail.setOrderAmount(product.getProductActualPrice()*o.getQuantity());
+            orderDetail.setOrderAmount(product.getProductDiscountedPrice()*o.getQuantity());
             orderDetail.setProduct(product);
             orderDetail.setUser(user);
             orderDetailDao.save(orderDetail);
